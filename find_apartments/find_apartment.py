@@ -2,6 +2,7 @@ import requests
 import logging
 import os
 import re
+from tinydb import TinyDB, Query
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
