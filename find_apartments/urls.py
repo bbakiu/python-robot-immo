@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.urls import path
+from find_apartments import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    path('findplaces', views.find_new_places),
+    path('checkimmobilienscout', views.check_immoscout),
+    path("hello", views.hello_there),
 ]
