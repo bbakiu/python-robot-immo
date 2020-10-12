@@ -2,7 +2,6 @@ import requests
 import logging
 import os
 import re
-from tinydb import TinyDB, Query
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -21,7 +20,6 @@ def search_immobilienscout(q):
         seen_apartments = []
         unseen_apartments = []
         logger.info("Searching Immoscout")
-        IMMO_SEARCH_URL = os.environ['IMMO_SEARCH_URL']
         try:
             apartments = requests.post(IMMO_SEARCH_URL).json()['searchResponseModel']['resultlist.resultlist']['resultlistEntries'][0]['resultlistEntry']
         except:
@@ -53,3 +51,6 @@ def search_immobilienscout(q):
         return {
             'status' : 'SUCCESS'
         }
+
+def verify_secret(q):
+    return True
