@@ -6,11 +6,7 @@ from hashlib import sha3_512
 from pymongo import MongoClient
 import telegram
 import re
-
-DB_NAME = os.environ["DB_NAME"]
-DB_USERNAME = os.environ["DB_USERNAME"]
-DB_PASSWORD = os.environ["DB_PASSWORD"]
-COLLECTION_NAME = os.environ["COLLECTION_NAME"]
+from tinydb import TinyDB, Query
 
 BOT_TOKEN = os.environ['BOT_TOKEN']
 CHAT_ID = os.environ['CHAT_ID']
@@ -20,39 +16,25 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 bot = telegram.Bot(token=BOT_TOKEN)
 IMMO_SEARCH_URL = 'https://www.immobilienscout24.de/Suche/radius/wohnung-mieten?centerofsearchaddress=Berlin;;;1276003001;Berlin;&numberofrooms=2.0-&price=-800.0&livingspace=50.0-&geocoordinates=52.51051;13.43068;5.0&enteredFrom=one_step_search'
-
-def get_db_collection():
-    client = MongoClient(
-        "mongodb+srv://%s:%s@cluster0.s7mly.mongodb.net/%s?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE" % (DB_USERNAME, DB_PASSWORD, DB_NAME))
-    db = client[DB_NAME]
-    hashes = db[COLLECTION_NAME]
-    return hashes
+tinydb = TinyDB('db.json')
 
 def add_to_database(hash_obj):
-    hashes = get_db_collection()
-    
-    hash_id = hashes.insert_one(hash_obj).inserted_id
-    logger.info(hash_id)
-
-def add_many_to_database(hash_objs):
-    hashes = get_db_collection()
-
-    hashes.insert_many(hash_objs)
+    existing = check_if_exists_in_database(hash_obj)
+    logger.info("existing")
+    logger.info(existing)
+    if (len(existing) == 0):
+        tinydb.insert(hash_obj)
 
 def check_if_exists_in_database(hash_obj):
-    hashes = get_db_collection()
+    Apartment = Query()
+    db_obj = tinydb.search(Apartment.hash == hash_obj['hash'])
 
-    db_obj = hashes.find_one(hash_obj)
     return db_obj
     
 def get_all_hashes_in_database():
-    hashes = get_db_collection()
+    hashes = tinydb.all()
 
-    db_objs = hashes.find().sort("_id", -1).limit(20)
-    hashes_in_db = []
-    for db_obj in db_objs:
-        hashes_in_db.append(db_obj["hash"])
-    return hashes_in_db
+    return hashes
 
 def push_notification(text):
     bot.send_message(chat_id=CHAT_ID, text=text, parse_mode="Markdown")
@@ -105,7 +87,8 @@ def search_immobilienscout(q):
                 # push_notification(data)
             
             # If you are interested only in public companies comment out the next line.
-            push_notification(text)
+            # push_notification(text)
+            logger.info(text)
             add_to_database({"hash": apartment['@id']})
 
         return {
