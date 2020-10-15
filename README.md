@@ -59,3 +59,10 @@ $ heroku config:set -a $APP_NAME CHAT_ID=$CHAT_ID
 $ heroku config:set -a $APP_NAME SECRET_KEY=$SECRET_KEY
 $ heroku config:set -a $APP_NAME IMMO_SEARCH_URL=$IMMO_SEARCH_URL
 ```
+To deploy you can either push the code in github, or run this command: 
+```
+$ git push heroku <branch name>
+```
+### Scheduling regular calls to the application:
+This project is using Github Action for this purpose. Check: https://github.com/bbakiu/python-robot-immo/blob/main/.github/workflows/manual.yml
+
