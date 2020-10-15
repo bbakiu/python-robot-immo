@@ -10,7 +10,7 @@ from tinydb import TinyDB, Query
 
 BOT_TOKEN = os.environ['BOT_TOKEN']
 CHAT_ID = os.environ['CHAT_ID']
-SECRET = os.environ['SECRET']
+SECRET = os.environ['SECRET_KEY']
 # IMMO_SEARCH_URL =  os.environ['IMMO_SEARCH_URL']
 
 logging.basicConfig(level=logging.INFO)
