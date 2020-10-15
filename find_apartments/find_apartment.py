@@ -89,8 +89,7 @@ def search_immobilienscout(q):
                 # push_notification(data)
             
             # If you are interested only in public companies comment out the next line.
-            # push_notification(text)
-            logger.info(text)
+            push_notification(text)
             add_to_database({"hash": apartment['@id']})
 
         return {
@@ -102,4 +101,4 @@ def search_immobilienscout(q):
         }
 
 def verify_secret(q):
-    return True
+    return q == SECRET
