@@ -11,12 +11,11 @@ from tinydb import TinyDB, Query
 BOT_TOKEN = os.environ['BOT_TOKEN']
 CHAT_ID = os.environ['CHAT_ID']
 SECRET = os.environ['SECRET_KEY']
-# IMMO_SEARCH_URL =  os.environ['IMMO_SEARCH_URL']
+IMMO_SEARCH_URL =  os.environ['IMMO_SEARCH_URL']
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 bot = telegram.Bot(token=BOT_TOKEN)
-IMMO_SEARCH_URL = 'https://www.immobilienscout24.de/Suche/radius/wohnung-mieten?centerofsearchaddress=Berlin;;;1276003001;Berlin;&numberofrooms=2.0-&price=-800.0&livingspace=50.0-&geocoordinates=52.51051;13.43068;5.0&enteredFrom=one_step_search'
 tinydb = TinyDB('db.json')
 
 def add_to_database(hash_obj):
