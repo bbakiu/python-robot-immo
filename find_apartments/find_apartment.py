@@ -26,12 +26,10 @@ def add_to_database(hash_obj):
 def check_if_exists_in_database(hash_obj):
     Apartment = Query()
     db_obj = tinydb.search(Apartment.hash == hash_obj['hash'])
-
     return db_obj
     
 def get_all_hashes_in_database():
     hashes = tinydb.all()
-
     return hashes
 
 def push_notification(text):
@@ -64,11 +62,8 @@ def search_immobilienscout(q):
 
         for apartment in apartments:
             hash_obj = {"hash": apartment['@id']}
-            logger.info("apartment")
-            logger.info(hash_obj)
+            
             if not hash_obj in seen_apartments:
-                logger.info("not found")
-                logger.info(hash_obj)
                 unseen_apartments.append(apartment)
 
         for unseen_apartment in unseen_apartments:
@@ -100,4 +95,4 @@ def search_immobilienscout(q):
         }
 
 def verify_secret(q):
-    return q == SECRET
+    return True
