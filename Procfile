@@ -1,2 +1,2 @@
 
-web: gunicorn find_apartment.wsgi
+web: gunicorn find_apartments.wsgi
