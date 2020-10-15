@@ -11,6 +11,7 @@ from tinydb import TinyDB, Query
 BOT_TOKEN = os.environ['BOT_TOKEN']
 CHAT_ID = os.environ['CHAT_ID']
 SECRET = os.environ['SECRET']
+# IMMO_SEARCH_URL =  os.environ['IMMO_SEARCH_URL']
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -20,8 +21,6 @@ tinydb = TinyDB('db.json')
 
 def add_to_database(hash_obj):
     existing = check_if_exists_in_database(hash_obj)
-    logger.info("existing")
-    logger.info(existing)
     if (len(existing) == 0):
         tinydb.insert(hash_obj)
 
@@ -66,9 +65,12 @@ def search_immobilienscout(q):
 
         for apartment in apartments:
             hash_obj = {"hash": apartment['@id']}
-            if not apartment['@id'] in seen_apartments:
+            logger.info("apartment")
+            logger.info(hash_obj)
+            if not hash_obj in seen_apartments:
+                logger.info("not found")
+                logger.info(hash_obj)
                 unseen_apartments.append(apartment)
-                seen_apartments.append(hash_obj)
 
         for unseen_apartment in unseen_apartments:
             apartment = unseen_apartment['resultlist.realEstate']
