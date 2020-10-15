@@ -1,7 +1,7 @@
 on:
   # Trigger the workflow on the cron schedule specified
   schedule:
-    - cron: "*/1 6-20 * * *"
+    - cron: "*/1 * * * *"
 
 jobs:
   poll_job:
