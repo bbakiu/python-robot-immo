@@ -1,12 +1,10 @@
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the master branch
+  # Trigger the workflow on the cron schedule specified
   schedule:
     - cron: "*/1 6-20 * * *"
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test_commentary:
+  poll_job:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
