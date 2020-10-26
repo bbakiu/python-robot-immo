@@ -1,18 +1,19 @@
-on:
-  # Trigger the workflow on the cron schedule specified
-  schedule:
-    - cron: "*/5 6-20 * * *"
+# Uncomment this file to start the git actions
+# on:
+#   # Trigger the workflow on the cron schedule specified
+#   schedule:
+#     - cron: "*/5 6-20 * * *"
 
-jobs:
-  poll_job:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+# jobs:
+#   poll_job:
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    # Runs a single command using the runners shell
-    - name: crawling
-      uses: satak/webrequest-action@master
-      with:
-        url: ${{ secrets.HEROKU_APP_LINK }}
-        method: GET
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#     # Runs a single command using the runners shell
+#     - name: crawling
+#       uses: satak/webrequest-action@master
+#       with:
+#         url: ${{ secrets.HEROKU_APP_LINK }}
+#         method: GET
